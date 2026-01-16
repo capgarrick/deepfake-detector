@@ -3,9 +3,9 @@
  * Frontend JavaScript Application
  */
 
-// Configuration
+// Configuration - uses dynamic URL from config.js if available
 const CONFIG = {
-    API_BASE_URL: 'http://localhost:8000',
+    API_BASE_URL: window.DEEPGUARD_API_URL || 'http://localhost:8000',
     MAX_FILE_SIZE: 100 * 1024 * 1024, // 100MB
     ALLOWED_VIDEO_TYPES: ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-msvideo', 'video/webm', 'video/x-matroska'],
     ALLOWED_AUDIO_TYPES: ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/flac', 'audio/x-m4a', 'audio/mp3']

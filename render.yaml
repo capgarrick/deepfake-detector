@@ -1,0 +1,18 @@
+# Render.com Deployment Configuration
+# This file tells Render how to build and run the backend
+
+services:
+  - type: web
+    name: deepguard-api
+    env: python
+    region: oregon
+    plan: free
+    branch: main
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11.9"
+      - key: PYTHONUNBUFFERED
+        value: "1"
+    healthCheckPath: /api/health

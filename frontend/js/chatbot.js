@@ -3,9 +3,9 @@
  * Educational chatbot for deepfake awareness and guidance
  */
 
-// Chatbot Configuration
+// Chatbot Configuration - uses dynamic URL from config.js if available
 const CHATBOT_CONFIG = {
-    API_BASE_URL: 'http://localhost:8000',
+    API_BASE_URL: window.DEEPGUARD_API_URL || 'http://localhost:8000',
     MAX_MESSAGE_LENGTH: 500,
     TYPING_DELAY: 50,
     MESSAGE_DELAY: 300
