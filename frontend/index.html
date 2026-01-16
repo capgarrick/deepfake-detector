@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="DeepGuard - AI-powered deepfake detection system for videos and audio. Protect yourself from synthetic media manipulation.">
+    <title>DeepGuard | AI Deepfake Detection</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">DeepGuard</span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Home</a>
+                <a href="#detect" class="nav-link">Detect</a>
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#protect" class="nav-link">Protection Tips</a>
+            </div>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span class="badge-icon">✨</span>
+                    <span>AI-Powered Protection</span>
+                </div>
+                <h1 class="hero-title">
+                    Detect <span class="gradient-text">Deepfakes</span><br>
+                    Protect <span class="gradient-text">Truth</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Advanced AI analysis for videos and audio. Uncover synthetic media manipulation
+                    with our multi-modal detection system using CNN, spectral analysis, and face landmark tracking.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#detect" class="btn btn-primary">
+                        <span class="btn-icon">🔍</span>
+                        Start Detection
+                    </a>
+                    <a href="#how-it-works" class="btn btn-secondary">
+                        Learn More
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">Detection Modes</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">468</span>
+                        <span class="stat-label">Face Points</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">99%</span>
+                        <span class="stat-label">Privacy</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <div class="scanner-animation">
+                    <div class="scanner-face">
+                        <div class="face-outline"></div>
+                        <div class="scan-line"></div>
+                        <div class="landmark-points">
+                            <span class="point p1"></span>
+                            <span class="point p2"></span>
+                            <span class="point p3"></span>
+                            <span class="point p4"></span>
+                            <span class="point p5"></span>
+                            <span class="point p6"></span>
+                            <span class="point p7"></span>
+                            <span class="point p8"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detection Section -->
+        <section id="detect" class="detect-section">
+            <div class="section-header">
+                <h2 class="section-title">Upload & Analyze</h2>
+                <p class="section-subtitle">Drop your video or audio file for comprehensive deepfake analysis</p>
+            </div>
+
+            <div class="detect-container">
+                <!-- Upload Zone -->
+                <div class="upload-zone" id="uploadZone">
+                    <div class="upload-content">
+                        <div class="upload-icon">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                <polyline points="17 8 12 3 7 8" />
+                                <line x1="12" y1="3" x2="12" y2="15" />
+                            </svg>
+                        </div>
+                        <h3 class="upload-title">Drag & Drop Your File</h3>
+                        <p class="upload-text">or click to browse</p>
+                        <div class="upload-formats">
+                            <span class="format-badge">MP4</span>
+                            <span class="format-badge">AVI</span>
+                            <span class="format-badge">MOV</span>
+                            <span class="format-badge">MP3</span>
+                            <span class="format-badge">WAV</span>
+                        </div>
+                        <input type="file" id="fileInput" accept="video/*,audio/*" hidden>
+                    </div>
+                    <div class="upload-preview" id="uploadPreview" hidden>
+                        <div class="preview-info">
+                            <span class="preview-icon" id="previewIcon">🎬</span>
+                            <div class="preview-details">
+                                <span class="preview-name" id="previewName"></span>
+                                <span class="preview-size" id="previewSize"></span>
+                            </div>
+                            <button class="preview-remove" id="removeFile">×</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analysis Options -->
+                <div class="analysis-options">
+                    <label class="option-card">
+                        <input type="radio" name="analysisType" value="full" checked>
+                        <div class="option-content">
+                            <span class="option-icon">🎯</span>
+                            <span class="option-title">Full Analysis</span>
+                            <span class="option-desc">Video + Audio + Face</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="analysisType" value="video">
+                        <div class="option-content">
+                            <span class="option-icon">🎬</span>
+                            <span class="option-title">Video Only</span>
+                            <span class="option-desc">Visual artifacts</span>
+                        </div>
+                    </label>
+                    <label class="option-card">
+                        <input type="radio" name="analysisType" value="audio">
+                        <div class="option-content">
+                            <span class="option-icon">🎵</span>
+                            <span class="option-title">Audio Only</span>
+                            <span class="option-desc">Voice synthesis</span>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Analyze Button -->
+                <button class="btn btn-analyze" id="analyzeBtn" disabled>
+                    <span class="btn-text">Analyze File</span>
+                    <span class="btn-loader hidden">
+                        <span class="loader-dot"></span>
+                        <span class="loader-dot"></span>
+                        <span class="loader-dot"></span>
+                    </span>
+                </button>
+
+                <!-- Progress Indicator -->
+                <div class="analysis-progress hidden" id="analysisProgress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                    <div class="progress-steps">
+                        <div class="step active" id="step1">
+                            <span class="step-icon">📥</span>
+                            <span class="step-text">Uploading</span>
+                        </div>
+                        <div class="step" id="step2">
+                            <span class="step-icon">🔬</span>
+                            <span class="step-text">Analyzing</span>
+                        </div>
+                        <div class="step" id="step3">
+                            <span class="step-icon">📊</span>
+                            <span class="step-text">Results</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Section -->
+            <div class="results-section hidden" id="resultsSection">
+                <div class="results-header">
+                    <h3 class="results-title">Analysis Results</h3>
+                    <button class="btn btn-new" id="newAnalysisBtn">New Analysis</button>
+                </div>
+
+                <!-- Overall Score -->
+                <div class="score-card" id="scoreCard">
+                    <div class="score-visual">
+                        <svg class="score-ring" viewBox="0 0 120 120">
+                            <circle class="ring-bg" cx="60" cy="60" r="54" />
+                            <circle class="ring-fill" cx="60" cy="60" r="54" id="scoreRing" />
+                        </svg>
+                        <div class="score-center">
+                            <span class="score-value" id="scoreValue">0</span>
+                            <span class="score-label">Authenticity</span>
+                        </div>
+                    </div>
+                    <div class="score-info">
+                        <div class="verdict-badge" id="verdictBadge">
+                            <span class="verdict-icon" id="verdictIcon">✅</span>
+                            <span class="verdict-text" id="verdictText">Analyzing...</span>
+                        </div>
+                        <p class="score-description" id="scoreDescription">
+                            Processing your file...
+                        </p>
+                        <div class="confidence-bar">
+                            <span class="confidence-label">Confidence</span>
+                            <div class="confidence-track">
+                                <div class="confidence-fill" id="confidenceFill"></div>
+                            </div>
+                            <span class="confidence-value" id="confidenceValue">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                <div class="analysis-details" id="analysisDetails">
+                    <h4 class="details-title">Detailed Analysis</h4>
+                    <div class="details-grid" id="detailsGrid">
+                        <!-- Dynamically populated -->
+                    </div>
+                </div>
+
+                <!-- Indicators -->
+                <div class="indicators-card" id="indicatorsCard">
+                    <h4 class="indicators-title">Detection Indicators</h4>
+                    <ul class="indicators-list" id="indicatorsList">
+                        <!-- Dynamically populated -->
+                    </ul>
+                </div>
+
+                <!-- Protection Tips -->
+                <div class="tips-card" id="tipsCard">
+                    <h4 class="tips-title">🛡️ Protection Tips</h4>
+                    <ul class="tips-list" id="tipsList">
+                        <!-- Dynamically populated -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="how-it-works" class="how-section">
+            <div class="section-header">
+                <h2 class="section-title">How It Works</h2>
+                <p class="section-subtitle">Our multi-modal AI system analyzes your media from three angles</p>
+            </div>
+
+            <div class="methods-grid">
+                <!-- Video Analysis -->
+                <div class="method-card">
+                    <div class="method-icon">🎬</div>
+                    <h3 class="method-title">Video Analysis</h3>
+                    <p class="method-desc">
+                        CNN-based deep learning detects visual artifacts, compression anomalies,
+                        and inconsistent lighting that reveal manipulation.
+                    </p>
+                    <ul class="method-features">
+                        <li>Compression artifact detection</li>
+                        <li>Color consistency analysis</li>
+                        <li>Noise pattern examination</li>
+                        <li>Temporal coherence check</li>
+                    </ul>
+                </div>
+
+                <!-- Audio Analysis -->
+                <div class="method-card">
+                    <div class="method-icon">🎵</div>
+                    <h3 class="method-title">Audio Analysis</h3>
+                    <p class="method-desc">
+                        Spectral analysis examines MFCC features, voice quality, and temporal
+                        patterns to identify synthetic or manipulated speech.
+                    </p>
+                    <ul class="method-features">
+                        <li>MFCC spectral analysis</li>
+                        <li>Voice naturalness scoring</li>
+                        <li>Jitter & shimmer detection</li>
+                        <li>Synthesis artifact scanning</li>
+                    </ul>
+                </div>
+
+                <!-- Face Analysis -->
+                <div class="method-card">
+                    <div class="method-icon">👤</div>
+                    <h3 class="method-title">Face Landmarks</h3>
+                    <p class="method-desc">
+                        468-point facial mesh tracking analyzes blink patterns, lip sync,
+                        symmetry, and micro-expressions for anomalies.
+                    </p>
+                    <ul class="method-features">
+                        <li>Blink pattern analysis</li>
+                        <li>Lip-sync verification</li>
+                        <li>Facial symmetry check</li>
+                        <li>Micro-expression tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protection Tips Section -->
+        <section id="protect" class="protect-section">
+            <div class="section-header">
+                <h2 class="section-title">Protect Yourself</h2>
+                <p class="section-subtitle">Essential tips to stay safe from deepfake threats</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <span class="tip-icon">🔍</span>
+                    <h4>Look for Visual Clues</h4>
+                    <p>Check for blurring around face edges, unnatural skin texture, or lighting mismatches.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">👁️</span>
+                    <h4>Watch the Eyes</h4>
+                    <p>Deepfakes often have issues with eye movement, blinking patterns, or light reflections.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">👂</span>
+                    <h4>Listen Carefully</h4>
+                    <p>Audio deepfakes may have unnatural pauses, robotic tones, or lip-sync issues.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">📰</span>
+                    <h4>Verify Sources</h4>
+                    <p>Always check multiple reliable sources before believing shocking content.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">🧠</span>
+                    <h4>Be Skeptical</h4>
+                    <p>If something seems too good or bad to be true, investigate further before sharing.</p>
+                </div>
+                <div class="tip-card">
+                    <span class="tip-icon">🛡️</span>
+                    <h4>Protect Your Data</h4>
+                    <p>Be careful about sharing personal photos and videos publicly online.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- AI Chatbot Widget -->
+    <div class="chatbot-widget" id="chatbotWidget">
+        <!-- Chatbot Toggle Button -->
+        <button class="chatbot-toggle" id="chatbotToggle" aria-label="Open chat assistant">
+            <span class="toggle-icon">💬</span>
+            <span class="toggle-pulse"></span>
+        </button>
+
+        <!-- Chatbot Window -->
+        <div class="chatbot-window hidden" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-info">
+                    <span class="chatbot-avatar">🤖</span>
+                    <div class="chatbot-header-text">
+                        <span class="chatbot-name">GuardBot</span>
+                        <span class="chatbot-status">AI Assistant</span>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">×</button>
+            </div>
+
+            <div class="chatbot-messages" id="chatbotMessages">
+                <!-- Messages will be dynamically added here -->
+            </div>
+
+            <div class="chatbot-suggestions" id="chatbotSuggestions">
+                <!-- Quick suggestion buttons -->
+            </div>
+
+            <div class="chatbot-input-area">
+                <input type="text" class="chatbot-input" id="chatbotInput" placeholder="Ask me about deepfakes..."
+                    autocomplete="off">
+                <button class="chatbot-send" id="chatbotSend">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <span class="logo-icon">🛡️</span>
+                <span class="logo-text">DeepGuard</span>
+            </div>
+            <p class="footer-text">
+                AI-powered deepfake detection for a safer digital world.
+                <br>Your privacy matters - files are deleted immediately after analysis.
+            </p>
+            <div class="footer-links">
+                <a href="#home">Home</a>
+                <a href="#detect">Detect</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#protect">Protection</a>
+            </div>
+            <p class="footer-copyright">© 2026 DeepGuard. Built to protect truth.</p>
+        </div>
+    </footer>
+
+    <script src="js/app.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+
+</html>
