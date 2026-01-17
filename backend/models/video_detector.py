@@ -25,7 +25,7 @@ class VideoDeepfakeDetector:
         self.model_loaded = False
         self.frame_size = (224, 224)
         
-    def extract_frames(self, video_path: str, max_frames: int = 30) -> List[np.ndarray]:
+    def extract_frames(self, video_path: str, max_frames: int = 15) -> List[np.ndarray]:
         """Extract evenly spaced frames from video, or reading single image"""
         frames = []
         

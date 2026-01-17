@@ -8,7 +8,8 @@ const CONFIG = {
     API_BASE_URL: window.DEEPGUARD_API_URL || 'http://localhost:8000',
     MAX_FILE_SIZE: 100 * 1024 * 1024, // 100MB
     ALLOWED_VIDEO_TYPES: ['video/mp4', 'video/avi', 'video/quicktime', 'video/x-msvideo', 'video/webm', 'video/x-matroska'],
-    ALLOWED_AUDIO_TYPES: ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/flac', 'audio/x-m4a', 'audio/mp3']
+    ALLOWED_AUDIO_TYPES: ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/flac', 'audio/x-m4a', 'audio/mp3'],
+    ALLOWED_IMAGE_TYPES: ['image/jpeg', 'image/png', 'image/webp', 'image/bmp', 'image/tiff']
 };
 
 // State
@@ -177,8 +178,14 @@ function processFile(file) {
         file.name.toLowerCase().endsWith('.flac') || file.name.toLowerCase().endsWith('.m4a')
     );
 
-    if (!isVideo && !isAudio) {
-        showError('Invalid file type. Please upload a video or audio file.');
+    const isImage = CONFIG.ALLOWED_IMAGE_TYPES.some(type =>
+        file.type === type || file.name.toLowerCase().endsWith('.jpg') ||
+        file.name.toLowerCase().endsWith('.jpeg') || file.name.toLowerCase().endsWith('.png') ||
+        file.name.toLowerCase().endsWith('.webp')
+    );
+
+    if (!isVideo && !isAudio && !isImage) {
+        showError('Invalid file type. Please upload a video, audio, or image file.');
         return;
     }
 
@@ -191,13 +198,37 @@ function processFile(file) {
     state.selectedFile = file;
 
     // Update preview
-    elements.previewIcon.textContent = isVideo ? '🎬' : '🎵';
+    elements.previewIcon.textContent = isVideo ? '🎬' : (isAudio ? '🎵' : '🖼️');
     elements.previewName.textContent = file.name;
     elements.previewSize.textContent = formatFileSize(file.size);
 
     // Show preview, hide upload content
     document.querySelector('.upload-content').style.display = 'none';
     elements.uploadPreview.hidden = false;
+
+    // Show actual image preview if it's an image
+    if (isImage) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const img = document.createElement('img');
+            img.src = e.target.result;
+            img.className = 'preview-image-thumbnail';
+            const iconContainer = elements.previewIcon.parentElement;
+
+            // Clear previous content but keep structure if needed, or just append
+            elements.previewIcon.style.display = 'none';
+            if (!iconContainer.querySelector('.preview-image-thumbnail')) {
+                iconContainer.appendChild(img);
+            } else {
+                iconContainer.querySelector('.preview-image-thumbnail').src = e.target.result;
+            }
+        };
+        reader.readAsDataURL(file);
+    } else {
+        elements.previewIcon.style.display = 'block';
+        const existingThumb = elements.previewIcon.parentElement.querySelector('.preview-image-thumbnail');
+        if (existingThumb) existingThumb.remove();
+    }
 
     // Enable analyze button
     elements.analyzeBtn.disabled = false;
@@ -220,6 +251,11 @@ function handleRemoveFile(e) {
     // Reset UI
     document.querySelector('.upload-content').style.display = 'block';
     elements.uploadPreview.hidden = true;
+
+    // Reset image preview
+    elements.previewIcon.style.display = 'block';
+    const existingThumb = elements.previewIcon.parentElement.querySelector('.preview-image-thumbnail');
+    if (existingThumb) existingThumb.remove();
     elements.analyzeBtn.disabled = true;
 }
 
@@ -252,6 +288,7 @@ async function handleAnalyze() {
                 endpoint = '/api/analyze/audio';
                 break;
             default:
+                // Full analysis handles videos and images
                 endpoint = '/api/analyze/full';
         }
 

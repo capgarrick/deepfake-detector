@@ -4,6 +4,14 @@
  */
 
 /* ==================== CSS Variables ==================== */
+.preview-image-thumbnail {
+    width: 64px;
+    height: 64px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
 :root {
     /* Primary Colors */
     --primary: #7C3AED;

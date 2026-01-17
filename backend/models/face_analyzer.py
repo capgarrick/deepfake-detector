@@ -343,7 +343,7 @@ class FaceLandmarkAnalyzer:
             'naturalness_score': round(naturalness, 3)
         }
     
-    def extract_frames_from_video(self, video_path: str, max_frames: int = 60) -> List[np.ndarray]:
+    def extract_frames_from_video(self, video_path: str, max_frames: int = 15) -> List[np.ndarray]:
         """Extract frames from video file or read single image"""
         frames = []
         
